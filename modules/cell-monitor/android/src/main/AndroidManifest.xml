@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="expo.modules.cellmonitor">
+
+    <!-- Tier 1: CellInfo access -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Tier 2: Shannon logcat stream -->
+    <!-- NOTE: READ_LOGS is signature-protected. Cannot be granted via UI.
+         Grant once via ADB:
+         adb shell pm grant com.atomictech.canary android.permission.READ_LOGS -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!-- Background operation -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Internet for CASTNET API posts -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+</manifest>

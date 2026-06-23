@@ -1,0 +1,10 @@
+{
+  "name": "cell-monitor",
+  "version": "3.0.0",
+  "description": "Canary v3 native cell monitoring module — Tier 1 CellInfo + Tier 2 Shannon logcat",
+  "main": "./index.ts",
+  "peerDependencies": {
+    "expo": "*",
+    "expo-modules-core": "*"
+  }
+}

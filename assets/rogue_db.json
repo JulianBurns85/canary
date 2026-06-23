@@ -1,0 +1,130 @@
+{
+  "schema": "canary-rogue-db-v1",
+  "version": "1.0.0",
+  "last_updated": "2026-06-21T00:00:00Z",
+  "source": "Operation Hidden Blade corpus — AFP 333545/334105/333080, ACMA ENQ-1851DVJH04",
+  "rogue_cids": [137713155, 137713165, 137713175, 137713195],
+  "rogue_enbs": [537942, 32849],
+  "rogue_tacs": [12385, 30336],
+  "rogue_cells": [
+    {
+      "id": "HB-A-01",
+      "platform": "Harris HailStorm II",
+      "enb_id": 537942,
+      "cid": 137713155,
+      "tac": 12385,
+      "mcc": "505",
+      "mnc": "01",
+      "spoofed_operator": "Telstra",
+      "confidence": 1.0,
+      "yaicd": 5.00,
+      "triple_confirmed": true,
+      "corpus_refs": ["43200.qmdl", "541358.pcapng"],
+      "cases": ["AFP-333545", "AFP-334105", "ACMA-ENQ-1851DVJH04"]
+    },
+    {
+      "id": "HB-A-02",
+      "platform": "Harris HailStorm II",
+      "enb_id": 537942,
+      "cid": 137713165,
+      "tac": 12385,
+      "mcc": "505",
+      "mnc": "01",
+      "spoofed_operator": "Telstra",
+      "confidence": 1.0,
+      "yaicd": 5.00,
+      "triple_confirmed": true,
+      "corpus_refs": ["43200.qmdl", "541358.pcapng"],
+      "cases": ["AFP-333545", "AFP-334105", "ACMA-ENQ-1851DVJH04"]
+    },
+    {
+      "id": "HB-A-03",
+      "platform": "Harris HailStorm II",
+      "enb_id": 537942,
+      "cid": 137713175,
+      "tac": 12385,
+      "mcc": "505",
+      "mnc": "01",
+      "spoofed_operator": "Telstra",
+      "confidence": 1.0,
+      "yaicd": 5.00,
+      "triple_confirmed": true,
+      "corpus_refs": ["43200.qmdl", "541358.pcapng"],
+      "cases": ["AFP-333545", "AFP-334105", "ACMA-ENQ-1851DVJH04"]
+    },
+    {
+      "id": "HB-A-04",
+      "platform": "Harris HailStorm II",
+      "enb_id": 537942,
+      "cid": 137713195,
+      "tac": 12385,
+      "mcc": "505",
+      "mnc": "01",
+      "spoofed_operator": "Telstra",
+      "confidence": 1.0,
+      "yaicd": 5.00,
+      "triple_confirmed": true,
+      "corpus_refs": ["43200.qmdl", "541358.pcapng"],
+      "cases": ["AFP-333545", "AFP-334105", "ACMA-ENQ-1851DVJH04"]
+    },
+    {
+      "id": "HB-B-01",
+      "platform": "srsRAN/BladeRF 2.0",
+      "enb_id": 32849,
+      "cid": null,
+      "tac": 30336,
+      "mcc": "505",
+      "mnc": "03",
+      "spoofed_operator": "Vodafone",
+      "confidence": 1.0,
+      "yaicd": 5.00,
+      "triple_confirmed": true,
+      "corpus_refs": ["541358.pcapng"],
+      "cases": ["AFP-333545", "AFP-334105", "ACMA-ENQ-1851DVJH04"]
+    }
+  ],
+  "spoofed_operators": [
+    {
+      "mcc": "505",
+      "mnc": "01",
+      "legitimate_operator": "Telstra",
+      "note": "Confirm via TAC and eNB — MCC/MNC alone insufficient"
+    },
+    {
+      "mcc": "505",
+      "mnc": "03",
+      "legitimate_operator": "Vodafone",
+      "note": "Confirm via TAC and eNB — MCC/MNC alone insufficient"
+    }
+  ],
+  "timing_signatures": {
+    "device_a_harris": {
+      "label": "Harris HailStorm II RRC release",
+      "interval_s": 210.182,
+      "mean_s": 209.652,
+      "cv_pct": 0.734,
+      "sample_count": 7,
+      "independent_confirmations": ["541358.pcapng tshark decode", "rayhunter-threat-analyzer v4.3"],
+      "ref": "CM-001 finding"
+    },
+    "device_b_srsran": {
+      "label": "srsRAN forced re-registration",
+      "interval_s": 40.48,
+      "sd_s": 0.127,
+      "cv_pct": 0.315,
+      "sample_count": 26,
+      "normal_au_t3412_s": 3240,
+      "anomaly_factor": 80,
+      "independent_confirmations": ["43200.qmdl tshark decode"]
+    }
+  },
+  "detection_thresholds": {
+    "rsrp_anomaly_strong_dbm": -65,
+    "rsrq_anomaly_strong_db": -5,
+    "band_copresence_min_delta_s": 16.8,
+    "yaicd_threat_threshold": 2.6,
+    "confidence_threat": 0.95,
+    "confidence_high": 0.70,
+    "confidence_suspicious": 0.30
+  }
+}

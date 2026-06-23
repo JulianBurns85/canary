@@ -1,0 +1,96 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+release.keystore
+*.jks
+android/gradle.properties
+# Build artifacts
+android/app/build/
+android/.gradle/
+android/build/
+
+# Credentials — never commit these
+android/app/release.keystore
+*.jks
+android/gradle.properties
+
+# Node
+node_modules/
+
+# Expo
+.expo/
+dist/
+
+# Old phase archives and dev detritus
+canary-v3-phase1/
+canary-v3-phase2/
+canary-v3-phase3/
+canary-v3-phase1.zip
+canary-v3-phase2.zip
+canary-v3-phase3.zip
+Photos-3-00158/
+Photos-3-00158.zip
+
+# Dev patch scripts
+apply_canary_patch.py
+write_ScanScreen.py
+fix_appjson.js
+fix_castnet_routes.py
+fix_kotlin.js
+fix_package.js
+fix_canary_files.ps1
+
+# Misc
+*.orig
+.DS_Store
+
+# Internal dev files
+.claude/
+CLAUDE.md
+AGENTS.md
+
+# Loose duplicate files at root
+CellMonitorModule.kt
+ShannonLogcatService (1).kt
+App.js
+
+# Module build artifacts
+modules/cell-monitor/android/build/

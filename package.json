@@ -1,0 +1,32 @@
+{
+  "name": "canary",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "cell-monitor": "file:./modules/cell-monitor",
+    "expo": "~56.0.12",
+    "expo-background-fetch": "~56.0.19",
+    "expo-device": "~56.0.4",
+    "expo-document-picker": "~56.0.4",
+    "expo-file-system": "~56.0.8",
+    "expo-notifications": "~56.0.18",
+    "expo-sharing": "~56.0.18",
+    "expo-status-bar": "~56.0.4",
+    "expo-task-manager": "~56.0.19",
+    "jszip": "^3.10.1",
+    "react": "19.2.3",
+    "react-native": "0.85.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/react": "~19.2.14",
+    "typescript": "~6.0.3"
+  }
+}
