@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 840" font-family="Inter, Roboto, -apple-system, 'Segoe UI', sans-serif" role="img" aria-label="Canary app mockup, monitoring screen">
+  <defs>
+    <filter id="ph" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000000" flood-opacity="0.30"/>
+    </filter>
+    <linearGradient id="hero" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#212530"/>
+      <stop offset="1" stop-color="#191C23"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .mono{font-family:ui-monospace,'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace;}
+    .t{fill:#E8EAED;}
+    .d{fill:#939AA6;}
+    .teal{fill:#6FB7A6;}
+    .gold{fill:#F2C14E;}
+  </style>
+
+  <!-- side buttons -->
+  <rect x="389" y="152" width="4" height="44" rx="2" fill="#1a1d22"/>
+  <rect x="389" y="210" width="4" height="72" rx="2" fill="#1a1d22"/>
+  <rect x="7" y="184" width="4" height="58" rx="2" fill="#1a1d22"/>
+
+  <!-- bezel + screen -->
+  <rect x="8" y="8" width="384" height="824" rx="48" fill="#0A0B0E" filter="url(#ph)"/>
+  <rect x="8.5" y="8.5" width="383" height="823" rx="47.5" fill="none" stroke="#2B303A" stroke-opacity="0.6"/>
+  <rect x="22" y="22" width="356" height="796" rx="38" fill="#14161B"/>
+  <circle cx="200" cy="40" r="5" fill="#05060A"/>
+  <circle cx="200" cy="40" r="5.6" fill="none" stroke="#23262d"/>
+
+  <!-- status bar -->
+  <text x="46" y="46" class="d" font-size="12" font-weight="600">21:16</text>
+  <g fill="#C9CDD4">
+    <rect x="311" y="44" width="2.6" height="4" rx="1"/>
+    <rect x="315.6" y="42" width="2.6" height="6" rx="1"/>
+    <rect x="320.2" y="40" width="2.6" height="8" rx="1"/>
+    <rect x="324.8" y="38" width="2.6" height="10" rx="1"/>
+  </g>
+  <g fill="none" stroke="#C9CDD4" stroke-width="1.6" stroke-linecap="round">
+    <path d="M330 42.6 Q334.5 38.4 339 42.6"/>
+    <path d="M331.6 45 Q334.5 42.4 337.4 45"/>
+  </g>
+  <circle cx="334.5" cy="47.4" r="1.3" fill="#C9CDD4"/>
+  <rect x="346" y="40" width="14" height="7.6" rx="2" fill="none" stroke="#C9CDD4" stroke-width="1.2"/>
+  <rect x="347.4" y="41.4" width="9" height="4.8" rx="1" fill="#C9CDD4"/>
+  <rect x="360.6" y="42.2" width="1.6" height="3.2" rx="0.8" fill="#C9CDD4"/>
+
+  <!-- app bar: pulse mark + wordmark -->
+  <circle cx="52" cy="80" r="3" class="gold"/>
+  <g fill="none" stroke="#F2C14E" stroke-width="2.2" stroke-linecap="round">
+    <path d="M58 74 A 8 8 0 0 1 58 86"/>
+    <path d="M46 74 A 8 8 0 0 0 46 86"/>
+    <path d="M63 70 A 13 13 0 0 1 63 90" stroke-opacity="0.45"/>
+    <path d="M41 70 A 13 13 0 0 0 41 90" stroke-opacity="0.45"/>
+  </g>
+  <text x="78" y="86" class="t" font-size="18" font-weight="700" letter-spacing="0.2">Canary</text>
+
+  <!-- ADB chip -->
+  <rect x="286" y="69" width="70" height="22" rx="11" fill="#1B262A" stroke="#2B3A3A"/>
+  <circle cx="300" cy="80" r="3" class="teal"/>
+  <text x="309" y="84" class="teal" font-size="11" font-weight="700" letter-spacing="0.6">ADB</text>
+
+  <!-- HERO status card -->
+  <rect x="42" y="110" width="316" height="172" rx="20" fill="url(#hero)" stroke="#2B303A"/>
+  <circle cx="200" cy="158" r="30" fill="none" stroke="#6FB7A6" stroke-opacity="0.16" stroke-width="2"/>
+  <circle cx="200" cy="158" r="20" fill="none" stroke="#6FB7A6" stroke-opacity="0.40" stroke-width="2"/>
+  <circle cx="200" cy="158" r="10" class="teal"/>
+  <path d="M195.6 158 l3 3 l6 -6.6" fill="none" stroke="#11201D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="212" text-anchor="middle" class="t" font-size="17" font-weight="600">Monitoring active</text>
+  <text x="200" y="232" text-anchor="middle" class="d" font-size="11.5">Cellular environment · checked 8s ago</text>
+  <line x1="64" y1="249" x2="336" y2="249" stroke="#2B303A"/>
+  <text x="100" y="270" text-anchor="middle" class="t" font-size="12.5" font-weight="600">4 cells</text>
+  <text x="200" y="270" text-anchor="middle" class="t" font-size="12.5" font-weight="600">1 band</text>
+  <text x="300" y="270" text-anchor="middle" class="t" font-size="12.5" font-weight="600">3h 12m</text>
+
+  <!-- eyebrow -->
+  <text x="46" y="316" class="d" font-size="10.5" font-weight="700" letter-spacing="1.8">RECENT ACTIVITY</text>
+
+  <!-- row 1 -->
+  <rect x="42" y="326" width="316" height="58" rx="14" fill="#1A1D24" stroke="#262B34"/>
+  <circle cx="66" cy="355" r="4" class="gold"/>
+  <text x="86" y="350" class="t" font-size="13.5" font-weight="600">Neighbour cell appeared</text>
+  <text x="86" y="369" class="mono d" font-size="11">PLMN 505-01 · CID 41027 · -98 dBm</text>
+  <text x="346" y="350" text-anchor="end" class="d" font-size="11">21:14</text>
+
+  <!-- row 2 -->
+  <rect x="42" y="390" width="316" height="58" rx="14" fill="#1A1D24" stroke="#262B34"/>
+  <circle cx="66" cy="419" r="4" class="teal"/>
+  <text x="86" y="414" class="t" font-size="13.5" font-weight="600">Serving cell stable</text>
+  <text x="86" y="433" class="mono d" font-size="11">PLMN 505-01 · CID 40915 · -71 dBm</text>
+  <text x="346" y="414" text-anchor="end" class="d" font-size="11">20:58</text>
+
+  <!-- row 3 -->
+  <rect x="42" y="454" width="316" height="58" rx="14" fill="#1A1D24" stroke="#262B34"/>
+  <circle cx="66" cy="483" r="4" class="teal"/>
+  <text x="86" y="478" class="t" font-size="13.5" font-weight="600">Baseline updated</text>
+  <text x="86" y="497" class="mono d" font-size="11">4 cells · band n78 · 1 PLMN</text>
+  <text x="346" y="478" text-anchor="end" class="d" font-size="11">20:30</text>
+
+  <!-- row 4 -->
+  <rect x="42" y="518" width="316" height="58" rx="14" fill="#1A1D24" stroke="#262B34"/>
+  <circle cx="66" cy="547" r="4" class="teal" opacity="0.6"/>
+  <text x="86" y="542" class="t" font-size="13.5" font-weight="600">Monitoring started</text>
+  <text x="86" y="561" class="mono d" font-size="11">session 3a1f · scan 30s</text>
+  <text x="346" y="542" text-anchor="end" class="d" font-size="11">18:02</text>
+
+  <!-- row 5 -->
+  <rect x="42" y="582" width="316" height="58" rx="14" fill="#1A1D24" stroke="#262B34"/>
+  <circle cx="66" cy="611" r="4" class="teal" opacity="0.6"/>
+  <text x="86" y="606" class="t" font-size="13.5" font-weight="600">Permissions granted</text>
+  <text x="86" y="625" class="mono d" font-size="11">telephony · fine location</text>
+  <text x="346" y="606" text-anchor="end" class="d" font-size="11">18:01</text>
+
+  <!-- see all -->
+  <text x="200" y="666" text-anchor="middle" class="teal" font-size="12" font-weight="600">See all activity ›</text>
+
+  <!-- bottom nav -->
+  <line x1="22" y1="746" x2="378" y2="746" stroke="#23262d"/>
+  <!-- monitor (active) -->
+  <circle cx="110" cy="772" r="7" fill="none" stroke="#6FB7A6" stroke-width="1.6"/>
+  <circle cx="110" cy="772" r="2.6" class="teal"/>
+  <text x="110" y="797" text-anchor="middle" class="teal" font-size="9.5" font-weight="600">Monitor</text>
+  <!-- history -->
+  <circle cx="200" cy="772" r="7" fill="none" stroke="#939AA6" stroke-width="1.5"/>
+  <path d="M200 768 v4 l2.6 2" fill="none" stroke="#939AA6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="797" text-anchor="middle" class="d" font-size="9.5" font-weight="500">History</text>
+  <!-- settings (sliders) -->
+  <g stroke="#939AA6" stroke-width="1.5" stroke-linecap="round">
+    <line x1="283" y1="769" x2="297" y2="769"/>
+    <line x1="283" y1="775" x2="297" y2="775"/>
+  </g>
+  <circle cx="293" cy="769" r="2.2" fill="#14161B" stroke="#939AA6" stroke-width="1.5"/>
+  <circle cx="287" cy="775" r="2.2" fill="#14161B" stroke="#939AA6" stroke-width="1.5"/>
+  <text x="290" y="797" text-anchor="middle" class="d" font-size="9.5" font-weight="500">Settings</text>
+
+  <!-- home indicator -->
+  <rect x="160" y="808" width="80" height="4" rx="2" fill="#3a3f49"/>
+</svg>

@@ -9,7 +9,7 @@ The project began after I observed anomalous cellular behaviour I wanted to be a
 > [!NOTE]
 > Canary reports *indicators* consistent with cell-site simulators. It does not, on its own, confirm a specific device or attribute it to any party. Treat its output as a signal for further investigation, not as proof.
 
-<!-- TODO: add a screenshot here once you've placed the mockup in docs/, e.g.: ![Canary monitoring screen](docs/screenshot-monitor.png) -->
+![Canary monitoring screen](docs/canary-mockup.png)
 
 ---
 
@@ -153,8 +153,6 @@ Detections are scored for confidence (0–1). High-confidence events can trigger
 
 Canary checks observed cells against a local database of identifiers (CID / eNB / TAC). It ships with a small seed set flagged during field testing, and you can add or remove entries yourself — or sync from your own CASTNET instance.
 
-<!-- Keep your own confirmed identifier set in a private config file, not in this public README. -->
-
 ---
 
 ## Related projects
@@ -174,7 +172,7 @@ Use it only on devices and networks you're authorised to monitor, and in line wi
 
 ## License
 
-<!-- TODO: add a license. MIT is the simplest and most permissive; GPL-3.0 keeps derivative works open. -->
+Licensed under the [MIT License](LICENSE).
 
 ---
 
