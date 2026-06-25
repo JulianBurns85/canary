@@ -1,119 +1,112 @@
-# CANARY v3.0
+# Canary
 
-**IMSI catcher detection for GrapheneOS**
+**IMSI-catcher detection for GrapheneOS**
 
-Real-time LTE rogue base station detection with autonomous countermeasure capability. Built for Pixel devices running GrapheneOS. Developed as part of Operation Hidden Blade — an 18-month investigation into confirmed rogue LTE infrastructure in Cranbourne East, Victoria, Australia.
+Canary continuously monitors your phone's LTE cell environment and alerts you to signs of an IMSI catcher — a cell-site simulator, sometimes called a "Stingray." It runs on Pixel devices under GrapheneOS and logs detections to a clear, reviewable history.
+
+The project began after I observed anomalous cellular behaviour I wanted to be able to detect reliably, and it's open source so others can do the same.
+
+> [!NOTE]
+> Canary reports *indicators* consistent with cell-site simulators. It does not, on its own, confirm a specific device or attribute it to any party. Treat its output as a signal for further investigation, not as proof.
+
+<!-- TODO: add a screenshot here once you've placed the mockup in docs/, e.g.: ![Canary monitoring screen](docs/screenshot-monitor.png) -->
 
 ---
 
 ## What it does
 
-Canary continuously monitors the LTE cell environment and alerts you when a rogue base station (IMSI catcher / Stingray) is detected.
+Canary watches the LTE cell environment and raises an alert when it sees behaviour consistent with a rogue base station.
 
 **Tier 1 — CellInfo API (any Android)**
 - Polls Android's CellInfo API every 30 seconds
-- Checks observed cells against a local rogue database (CID, eNB, TAC)
-- Detects operator spoofing, RSRP/RSRQ anomalies, and confirmed rogue identifiers
+- Checks observed cells against a local identifier database (CID, eNB, TAC)
+- Flags operator spoofing, RSRP/RSRQ anomalies, and known-bad identifiers
 - Works immediately on install, no configuration required
 
-**Tier 2 — Shannon IMS Logcat (Pixel/GrapheneOS)**
+**Tier 2 — Shannon IMS logcat (Pixel / GrapheneOS)**
 - Streams real-time baseband logs from the Samsung Shannon IMS firmware service
-- Detects attacks at the firmware layer — before they reach the OS
-- Catches identity harvesting, cipher negotiation anomalies, and authentication attacks
+- Surfaces events at the firmware layer — before they reach the OS
+- Looks for identity requests, cipher-negotiation anomalies, and authentication irregularities
 - Requires a one-time ADB command (see setup below)
 
-**Defender Mode**
-- On confirmed threat (≥80% confidence), POSTs to your CASTNET Pi
-- Pi runs `cm_harris.sh` via ADB — triggers a data cycle to force bearer reset
-- During phone calls, defender fires automatically after you hang up
-- 5-minute global cooldown between countermeasures
+**Call overlay**
+- When your phone rings, Canary checks the cell environment and shows a status indicator over the incoming-call screen
+- Green = nothing unusual detected
+- Amber = possible rogue tower, with the option to respond now or after the call
 
-**Call Overlay**
-- When your phone rings, Canary scans the cell environment and displays a threat indicator over the incoming call screen
-- Green = safe to answer
-- Red = rogue tower active, with options to defend immediately or after the call
+**Defender mode (experimental, optional)**
+- On a high-confidence detection, Canary can POST to your own CASTNET Pi to trigger a response action
+- Off by default; requires your own Pi infrastructure
+- A note on honesty: reliable countermeasures against modern cell-site simulators are an open problem. Treat Defender mode as experimental — useful for logging and research, not a guaranteed defence.
 
 ---
 
 ## Requirements
 
-- **Device:** Google Pixel (any generation with Samsung Shannon baseband for Tier 2)
-- **OS:** [GrapheneOS](https://grapheneos.org) (recommended) or stock Android 10+
-- **CASTNET Pi:** Raspberry Pi running `castnet_api.py` (for Defender Mode and remote rogue DB — optional but recommended)
-- **PC:** Required once for Tier 2 ADB setup
+- **Device:** Google Pixel (Samsung Shannon baseband required for Tier 2)
+- **OS:** [GrapheneOS](https://grapheneos.org) recommended, or stock Android 10+
+- **PC:** needed once, for the Tier 2 ADB grant
+- **CASTNET Pi:** optional — a Raspberry Pi running `castnet_api.py`, for remote database sync and Defender mode
 
 ---
 
 ## Installation
 
-Canary is not on the Play Store. Install via ADB sideload.
+Canary isn't on the Play Store. Install via ADB sideload.
 
-**1. Download the APK**
+**1. Download the APK** from the [Releases](https://github.com/JulianBurns85/canary/releases) page.
 
-Download `app-release.apk` from the [Releases](https://github.com/JulianBurns85/canary/releases) page.
+**2. Enable ADB on the Pixel:** Settings → About phone → tap Build number 7 times → Developer options → enable USB debugging.
 
-**2. Enable ADB on the Pixel**
-
-On your Pixel: Settings → About Phone → tap Build Number 7 times → Developer Options → enable USB Debugging.
-
-**3. Connect via USB and install**
+**3. Connect via USB and install:**
 
 ```bash
 adb install app-release.apk
 ```
 
-Or wirelessly if ADB over TCP is already enabled:
+Or over Wi-Fi if ADB-over-TCP is enabled:
 
 ```bash
-adb connect 192.168.x.x:5555
-adb -s 192.168.x.x:5555 install app-release.apk
+adb connect <phone-ip>:5555
+adb -s <phone-ip>:5555 install app-release.apk
 ```
 
-**4. Open Canary**
-
-The first-run onboarding wizard will guide you through Pi setup and Tier 2 activation.
+**4. Open Canary.** The first-run wizard walks you through setup and Tier 2 activation.
 
 ---
 
-## Tier 2 Setup (Shannon baseband)
+## Tier 2 setup (Shannon baseband)
 
-Tier 1 is active immediately. Tier 2 requires a one-time permission grant from a PC with the Pixel connected via USB:
+Tier 1 is active immediately. Tier 2 needs a one-time permission grant from a PC with the Pixel connected via USB:
 
 ```bash
 adb shell pm grant com.atomictech.canary android.permission.READ_LOGS
 ```
 
-Then in Canary: **Settings → Shannon Baseband → Activate Tier 2**
+Then in Canary: **Settings → Shannon baseband → Activate Tier 2**.
 
-The permission survives reboots. You only need to run this once per install.
+The grant survives reboots — you only run it once per install.
 
-> **GrapheneOS note:** GrapheneOS restricts `READ_LOGS` more aggressively than stock Android. The ADB grant method bypasses this restriction correctly. If you factory reset or reinstall Canary, you will need to re-run the ADB command.
+> [!NOTE]
+> GrapheneOS restricts `READ_LOGS` more aggressively than stock Android. The ADB grant is the correct way to enable it. If you factory reset or reinstall Canary, re-run the command.
 
 ---
 
-## CASTNET Pi Setup (optional)
+## CASTNET Pi setup (optional)
 
-CASTNET is the companion distributed detection network. A Pi running `castnet_api.py` provides:
-
-- Remote rogue database (synced from the CASTNET corpus)
-- Defender Mode trigger endpoint (`/api/defender/trigger`)
-- Detection event aggregation across nodes
-
-**Quick setup:**
+CASTNET is the companion detection network. A Pi running `castnet_api.py` provides remote database sync, the Defender-mode trigger endpoint, and detection event aggregation across nodes.
 
 ```bash
-# On the Pi
+# on the Pi
 git clone https://github.com/JulianBurns85/CASTNET
 cd CASTNET
 pip install flask
 python3 castnet_api.py
 ```
 
-In Canary: **Settings → CASTNET Pi Connection → enter your Pi's IP → Test Connection**
+In Canary: **Settings → CASTNET Pi connection → enter your Pi's IP → Test connection.**
 
-Default endpoints (tried automatically if no custom URL is set):
-- `http://100.68.146.48:5000` — Tailscale (remote access)
-- `http://192.168.1.239:5000` — LAN fallback
+Point Canary at your own Pi, for example `http://<your-pi-ip>:5000`. Use a LAN address at home, or a [Tailscale](https://tailscale.com) address for remote access.
 
 ---
 
@@ -132,7 +125,7 @@ Default endpoints (tried automatically if no custom URL is set):
 
 ---
 
-## Detection Architecture
+## Detection architecture
 
 ```
 CellInfo API (30s poll)
@@ -149,48 +142,45 @@ Shannon IMS Logcat (real-time)
             ├── SHANNON_ROGUE_CID          — Rogue CID in firmware logs
             ├── SHANNON_ROGUE_ENB          — Rogue eNB in firmware logs
             ├── SHANNON_IMS_SUPPORT_SERVICE — Anomalous IMS service activity
-            └── SHANNON_IDENTITY_REQUEST   — Identity harvest attempt at firmware layer
+            └── SHANNON_IDENTITY_REQUEST   — Identity request at firmware layer
 ```
 
-Detections are scored for confidence (0–1). Events above 0.80 trigger Defender Mode when enabled.
+Detections are scored for confidence (0–1). High-confidence events can trigger Defender mode when it's enabled.
 
 ---
 
-## Confirmed Rogue Platforms (Operation Hidden Blade)
+## Rogue database
 
-The local rogue database ships with the following confirmed devices:
+Canary checks observed cells against a local database of identifiers (CID / eNB / TAC). It ships with a small seed set flagged during field testing, and you can add or remove entries yourself — or sync from your own CASTNET instance.
 
-| Device | Platform | eNB | TAC | Operator Mask |
-|--------|----------|-----|-----|---------------|
-| Device A | Harris HailStorm II | 537942 | 12385 | Telstra (MCC=505 MNC=01) |
-| Device B | srsRAN/BladeRF 2.0 | 32849 | 30336 | Vodafone (MCC=505 MNC=03) |
-
-YAICD score: **5.00/5.00 (CRITICAL)** across 382,723+ events.
-
-Active regulatory references: AFP 333080, 333545, 334105, 334860 · VicPol INT26IR3127399 · ACMA ENQ-1851DVJH04 · TIO 2026-03-04898
+<!-- Keep your own confirmed identifier set in a private config file, not in this public README. -->
 
 ---
 
-## Related Projects
+## Related projects
 
-- **[CASTNET](https://github.com/JulianBurns85/CASTNET)** — Distributed IMSI catcher detection network
-- **[rayhunter-threat-analyzer](https://github.com/JulianBurns85/rayhunter-threat-analyzer)** — RF corpus analysis and forensic reporting (v4.3+)
+- **[CASTNET](https://github.com/JulianBurns85/CASTNET)** — distributed IMSI-catcher detection network
+- **[rayhunter-threat-analyzer](https://github.com/JulianBurns85/rayhunter-threat-analyzer)** — RF corpus analysis and forensic reporting
 
 ---
 
-## Legal
+## Legal & ethics
 
-Canary is passive monitoring software. It does not transmit, jam, or interfere with any cellular network. Detection and countermeasure logging is performed solely on the user's own device and their own CASTNET infrastructure.
+Canary is passive monitoring software. It does not transmit, jam, or interfere with any cellular network. All detection and logging happens on your own device and your own CASTNET infrastructure.
 
-Operation against rogue LTE infrastructure is conducted under passive observation only. All formal evidence submissions are filed with the Australian Federal Police, ACMA, VicPol, and TIO.
+Use it only on devices and networks you're authorised to monitor, and in line with your local law.
+
+---
+
+## License
+
+<!-- TODO: add a license. MIT is the simplest and most permissive; GPL-3.0 keeps derivative works open. -->
 
 ---
 
 ## Author
 
-**Julian Burns** — Director, Atomic Tech  
-Cranbourne East, Victoria, Australia  
-[@Julian_Burns85](https://x.com/Julian_Burns85)  
+**Julian Burns** — Atomic Tech · [@Julian_Burns85](https://x.com/Julian_Burns85)
 
 ---
 
